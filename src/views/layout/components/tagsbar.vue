@@ -1,15 +1,24 @@
 <template>
-  <div class="tags-view-container">
-    <div class='tags-view-wrapper' ref='scrollPane'>
-      <router-link ref='tag' class="tags-view-item" :class="isActive(tag)?'active':''" v-for="tag in Array.from(visitedViews)" :to="tag.path" :key="tag.path" @contextmenu.prevent.native="openMenu(tag,$event)">
+  <div class="tagsbar-container">
+    <v-scrollPane class='tagsbar-wrapper' ref='scrollPane'>
+      <router-link ref='tag' class="tagsbar-item" :class="isActive(tag)?'active':''" v-for="tag in Array.from(visitedViews)" :to="tag.path" :key="tag.path" @contextmenu.prevent.native="openMenu(tag,$event)">
         {{tag.name}}
         <span class='el-icon-close' @click.prevent.stop='closeSelectedTag(tag)'></span>
       </router-link>
-    </div>
+    </v-scrollPane>
+    <ul class='contextmenu' v-show="visible" :style="{left:left+'px',top:top+'px'}">
+      <li @click="closeSelectedTag(selectedTag)">关闭</li>
+      <li @click="closeOthersTags">关闭其他</li>
+      <li @click="closeAllTags">全部关闭</li>
+    </ul>
   </div>
 </template>
 <script>
+import ScrollPane from './scrollPane'
 export default {
+  components: {
+    'v-scrollPane': ScrollPane
+  },
   data () {
     return {
       visible: false,
@@ -26,13 +35,19 @@ export default {
   watch: {
     $route () {
       this.addViewTags()
+    },
+    visible (value) {
+      if (value) {
+        window.addEventListener('click', this.closeMenu)
+      } else {
+        window.removeEventListener('click', this.closeMenu)
+      }
     }
   },
   mounted () {
     this.addViewTags()
   },
   methods: {
-    // generateTitle, // generateTitle by vue-i18n
     generateRoute () {
       if (this.$route.name) {
         return this.$route
@@ -46,6 +61,17 @@ export default {
       const route = this.generateRoute()
       this.$store.dispatch('addVisitedViews', route)
     },
+    moveToCurrentTag () {
+      const tags = this.$refs.tag
+      this.$nextTick(() => {
+        for (const tag of tags) {
+          if (tag.to === this.$route.path) {
+            this.$refs.scrollPane.moveToTarget(tag.$el)
+            break
+          }
+        }
+      })
+    },
     closeSelectedTag (view) {
       this.$store.dispatch('delVisitedViews', view).then((views) => {
         if (this.isActive(view)) {
@@ -58,23 +84,38 @@ export default {
         }
       })
     },
+    closeOthersTags () {
+      this.$router.push(this.selectedTag.path)
+      this.$store.dispatch('delOthersViews', this.selectedTag).then(() => {
+        this.moveToCurrentTag()
+      })
+    },
     closeAllTags () {
       this.$store.dispatch('delAllViews')
       this.$router.push('/dashboard/index')
+    },
+    openMenu (tag, e) {
+      this.visible = true
+      this.selectedTag = tag
+      this.left = e.clientX
+      this.top = e.clientY
+    },
+    closeMenu () {
+      this.visible = false
     }
   }
 }
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-.tags-view-container {
-  .tags-view-wrapper {
+.tagsbar-container {
+  .tagsbar-wrapper {
     background: #fff;
     min-height: 34px;
     padding-bottom:2px;
     border-bottom: 1px solid #d8dce5;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
-    .tags-view-item {
+    .tagsbar-item {
       display: inline-block;
       position: relative;
       height: 26px;
@@ -130,8 +171,8 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss">
 //reset element css of el-icon-close
-.tags-view-wrapper {
-  .tags-view-item {
+.tagsbar-wrapper {
+  .tagsbar-item {
     .el-icon-close {
       width: 16px;
       height: 16px;

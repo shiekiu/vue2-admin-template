@@ -11,7 +11,7 @@
         <i class="el-icon-menu" @click="menuChange"></i>
         <v-navbar></v-navbar>
       </div>
-      <v-tagsView v-if = 'breadcrumblist.length > 0'></v-tagsView>
+      <v-tagsbar v-if = 'breadcrumblist.length > 0'></v-tagsbar>
       <div class="wrapper">
         <router-view></router-view>
       </div>
@@ -62,12 +62,12 @@
 <script>
 import sidebar from './components/sidebar'
 import navbar from './components/navbar'
-import tagsView from './components/tagsView'
+import tagsbar from './components/tagsbar'
 export default {
   components: {
     'v-sidebar': sidebar,
     'v-navbar': navbar,
-    'v-tagsView': tagsView
+    'v-tagsbar': tagsbar
   },
   data () {
     return {
