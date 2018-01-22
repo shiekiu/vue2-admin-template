@@ -21,14 +21,19 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+      <el-tooltip effect="dark" content="全屏" placement="bottom">
+        <v-screenfull class="screenfull right-menu-item"></v-screenfull>
+      </el-tooltip>
     </div>
   </el-menu>
 </template>
 <script>
 import Breadcrumb from './breadcrumb'
+import Screenfull from './screenfull'
 export default {
   components: {
-    'v-breadcrumb': Breadcrumb
+    'v-breadcrumb': Breadcrumb,
+    'v-screenfull': Screenfull
   },
   props: {
     breadcrumblist: {
@@ -57,11 +62,12 @@ export default {
      outline: none;
     }
     .right-menu-item {
-      display: inline-block;
+      // display: inline-block;
       margin: 0 8px;
+      float: right;
     }
     .screenfull {
-      height: 20px;
+      height: 50px;
     }
     .international{
       vertical-align: top;

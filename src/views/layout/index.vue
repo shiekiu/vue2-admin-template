@@ -8,7 +8,7 @@
       <!--导航条-->
       <div class="top">
         <!--菜单缩进切换-->
-        <i class="el-icon-menu" @click="menuChange"></i>
+        <i :class="!isCollapse?'icon iconfont icon-menu-left':'icon iconfont icon-menu-right' " @click="menuChange"></i>
         <v-navbar></v-navbar>
       </div>
       <v-tagsbar v-if = 'breadcrumblist.length > 0'></v-tagsbar>
@@ -49,8 +49,8 @@
         border-bottom:1px solid #e6e6e6;
         i{
           font-size:24px;
-          padding-left:20px;
-          padding-right:20px;
+          padding-left:10px;
+          padding-right:10px;
           cursor: pointer;
         }
     }

@@ -23,7 +23,7 @@ export const constantRouterMap = [
   { path: '/dashboard',
     name: '主页',
     title: '主页',
-    icon: 'el-icon-menu',
+    icon: 'icon iconfont icon-home',
     component: Layout,
     hidden: false,
     children: [
@@ -33,7 +33,7 @@ export const constantRouterMap = [
   { path: '/account',
     name: '账户管理',
     title: '账户管理',
-    icon: 'el-icon-menu',
+    icon: 'icon iconfont icon-account',
     component: Layout,
     hidden: false,
     children: [
