@@ -488,8 +488,11 @@ export default {
     submitForm () {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          // localStorage.token = 'admintoken'
-          this.$router.push('dashboard/index')
+          this.$store.dispatch('LoginIn', this.loginForm).then(() => {
+            console.log(this.$store)
+            // this.$router.push({ path: '/dashboard/index' })
+          }).catch(() => {
+          })
         } else {
           console.log('登录失败!!')
           return false
