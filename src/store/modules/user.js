@@ -1,9 +1,7 @@
-'use strict'
+import login from '../../api/login'
 const user = {
   state: {
-    token: '',
-    name: '',
-    avatar: ''
+    name: ''
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -11,12 +9,28 @@ const user = {
     },
     SET_NAME: (state, name) => {
       state.name = name
-    },
-    SET_AVATAR: (state, avatar) => {
-      state.avatar = avatar
     }
   },
   actions: {
+    LoginIn ({ commit }, userInfo) {
+      const username = userInfo.username.trim()
+      return new Promise((resolve, reject) => {
+        login(username, userInfo.password).then(response => {
+          const data = response.data
+          console.log(data)
+          if (data.statuscode === 200) {
+            commit('SET_TOKEN', data.bean.token)
+            commit('SET_NAME', data.nickname)
+          } else {
+            commit('SET_TOKEN', '')
+            commit('SET_NAME', '')
+          }
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    }
   }
 }
 export default user

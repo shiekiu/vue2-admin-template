@@ -3,7 +3,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
 import user from './modules/user'
-import tagsView from './modules/tags'
+import tagsbar from './modules/tags'
 Vue.use(Vuex)
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage
@@ -12,7 +12,7 @@ const vuexLocal = new VuexPersistence({
 export default new Vuex.Store({
   modules: {
     user,
-    tagsView
+    tagsbar
   },
   plugins: [vuexLocal.plugin]
 })
