@@ -20,7 +20,7 @@ body {
     background-size:cover;
     background-position:center;
     background-attachment:fixed;
-    background-color: #ffffff;
+    background-color: #304156;
     /*background: #7e8081;
     background-image: radial-gradient(top, circle cover, #7e8081 0%, #252233 80%);--*/
 }

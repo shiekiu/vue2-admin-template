@@ -56,6 +56,7 @@
     }
     .wrapper{
       padding:20px;
+      background-color: #ffffff;
     }
   }
 </style>
