@@ -19,7 +19,7 @@
         </div>
         <div class="clear"></div>
         <div class="submit-agileits">
-          <input type="submit" value="登錄" @click="submitForm('loginForm')">
+          <input type="button" value="登錄" @click="submitForm('loginForm')">
         </div>
       </el-form>
     </div>
@@ -488,9 +488,13 @@ export default {
     submitForm () {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.$store.dispatch('LoginIn', this.loginForm).then(() => {
-            console.log(this.$store)
-            // this.$router.push({ path: '/dashboard/index' })
+          this.$store.dispatch('LoginIn', this.loginForm).then((res) => {
+            if (res.statuscode === 200) {
+              this.$router.push({ path: '/dashboard/index' })
+            } else {
+              console.log(res.message)
+            }
+            // console.log(this.$store)
           }).catch(() => {
           })
         } else {
