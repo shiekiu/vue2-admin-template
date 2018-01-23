@@ -1,7 +1,7 @@
 <template>
 <div id="login-container">
   <div class="header-w3l">
-    <h1>管理系统</h1>
+    <h1>管理系統</h1>
   </div>
   <!--main-->
   <div class="main-agileinfo">
@@ -9,17 +9,17 @@
       <el-form :model="loginForm" status-icon :rules="loginRules" ref="loginForm">
         <div class="form-sub-w3">
           <el-form-item label="" prop="username">
-            <el-input class='username' placeholder="请填写账号" v-model ="loginForm.username"></el-input>
+            <el-input class='username' placeholder="請填寫賬號" v-model ="loginForm.username"></el-input>
           </el-form-item>
         </div>
         <div class="form-sub-w3">
           <el-form-item label="" prop="password">
-            <el-input class='password' type="password" placeholder="请输入密码"  v-model="loginForm.password" auto-complete="off"></el-input>
+            <el-input class='password' type="password" placeholder="請輸入密碼"  v-model="loginForm.password" auto-complete="off"></el-input>
           </el-form-item>
         </div>
         <div class="clear"></div>
         <div class="submit-agileits">
-          <input type="submit" value="登录" @click="submitForm('loginForm')">
+          <input type="submit" value="登錄" @click="submitForm('loginForm')">
         </div>
       </el-form>
     </div>

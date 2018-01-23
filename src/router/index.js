@@ -19,26 +19,26 @@ export const constantRouterMap = [
   { path: '/login', component: _import('login/index'), hidden: true },
   { path: '/401', component: _import('errorpage/401'), hidden: true },
   { path: '/404', component: _import('errorpage/404'), hidden: true },
-  { path: '/dashboard', title: '主页', component: Layout, hidden: true },
+  { path: '/dashboard', title: '主頁', component: Layout, hidden: true },
   { path: '/dashboard',
-    name: '主页',
-    title: '主页',
+    name: '主頁',
+    title: '主頁',
     icon: 'icon iconfont icon-home',
     component: Layout,
     hidden: false,
     children: [
-      { path: 'index', name: '主页', title: '主页', component: _import('dashboard/index') }
+      { path: 'index', name: '主頁', title: '主頁', component: _import('dashboard/index') }
     ]
   },
   { path: '/account',
-    name: '账户管理',
-    title: '账户管理',
+    name: '帳號管理',
+    title: '帳號管理',
     icon: 'icon iconfont icon-account',
     component: Layout,
     hidden: false,
     children: [
-      { path: 'account', name: '账户管理', title: '账户管理', component: _import('account/index') },
-      { path: 'password', name: '修改密码', title: '修改密码', component: _import('password/index') }
+      { path: 'account', name: '帳號管理', title: '帳號管理', component: _import('account/index') },
+      { path: 'password', name: '更改密碼', title: '更改密碼', component: _import('password/index') }
     ]
   }
 ]
