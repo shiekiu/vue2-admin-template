@@ -1,11 +1,19 @@
 <template>
 <div>
+  <div style="display:flex;justify-content: space-between;align-items: center;">
+    <div>
+    </div>
+    <div>
+      <el-button style="margin-left: 10px;" type="primary" icon="el-icon-search">查询</el-button>
+      <el-button style="margin-left: 10px;" type="success" icon="el-icon-edit-outline">新增</el-button>
+    </div>
+  </div>
   <el-table :data="AccountTableData" style="width: 100%" stripe height="400">
     <el-table-column fixed prop="user_name" label="賬號" align="center"></el-table-column>
     <el-table-column fixed prop="nickname" label="昵称" align="center"></el-table-column>
     <el-table-column fixed="right" label="操作" width="100" align="center">
       <template slot-scope="scope">
-        <el-button class="el-icon-edit" size="mini" @click="handleEdit(scope.$index, scope.row)"></el-button>
+        <el-button class="el-icon-edit" type="info" size="mini" @click="handleEdit(scope.$index, scope.row)"></el-button>
       </template>
     </el-table-column>
    </el-table>

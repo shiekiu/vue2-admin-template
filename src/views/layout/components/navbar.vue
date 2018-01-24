@@ -1,5 +1,6 @@
 <template>
-  <el-menu class="navbar" mode="horizontal">
+  <div class="navbar">
+  <el-menu mode="horizontal" class="navbar-container">
     <v-breadcrumb class="breadcrumb-container"></v-breadcrumb>
     <div class="right-menu">
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
@@ -13,7 +14,7 @@
           </el-dropdown-item>
           <router-link to="/account/password">
             <el-dropdown-item>
-              修改密码
+              <span @click="modifyPassword" style="display:block;">更改密码</span>
             </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided>
@@ -26,6 +27,24 @@
       </el-tooltip>
     </div>
   </el-menu>
+  <el-dialog title="更改密码" :visible.sync="passwordFormVisible" width="70%">
+    <el-form :model="PasswordData">
+      <el-form-item label="賬號" :label-width="formLabelWidth">
+        <span></span>
+      </el-form-item>
+      <el-form-item label="原密码" :label-width="formLabelWidth">
+        <el-input class='editInput' auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="新密码" :label-width="formLabelWidth">
+        <el-input class='editInput' auto-complete="off"></el-input>
+      </el-form-item>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="passwordFormVisible = false">取 消</el-button>
+      <el-button type="primary" @click="passwordFormVisible = false">確 定</el-button>
+    </div>
+  </el-dialog>
+  </div>
 </template>
 <script>
 import Breadcrumb from './breadcrumb'
@@ -41,9 +60,22 @@ export default {
     }
   },
   methods: {
+    modifyPassword () {
+      this.passwordFormVisible = true
+    },
     logout () {
       this.$store.dispatch('loginOut')
       this.$router.push({ path: '/' })
+    }
+  },
+  data () {
+    return {
+      passwordFormVisible: false,
+      formLabelWidth: '80px',
+      PasswordData: {
+        user_name: '',
+        password: ''
+      }
     }
   }
 }
@@ -54,11 +86,15 @@ export default {
   line-height: 50px;
   border-radius: 0px !important;
   width:100%;
+  .navbar-container{
+    display:flex;
+  }
   .breadcrumb-container{
-    float: left;
+    flex:1;
   }
   .right-menu {
-    float: right;
+    flex:1;
+    width: 100%;
     height: 100%;
     &:focus{
      outline: none;

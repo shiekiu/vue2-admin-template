@@ -22,7 +22,7 @@ export const constantRouterMap = [
   { path: '/404', component: _import('errorpage/404'), hidden: true },
   { path: '/dashboard', title: '主頁', component: Layout, hidden: true },
   { path: '/dashboard',
-    name: '主頁',
+    redirect: { name: '主頁' },
     title: '主頁',
     icon: 'icon iconfont icon-home',
     component: Layout,
@@ -32,7 +32,7 @@ export const constantRouterMap = [
     ]
   },
   { path: '/account',
-    name: '帳號管理',
+    redirect: { name: '帳號管理' },
     title: '帳號管理',
     icon: 'icon iconfont icon-account',
     component: Layout,
