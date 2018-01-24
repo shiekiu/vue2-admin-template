@@ -1,7 +1,8 @@
 import login from '../../api/login'
 const user = {
   state: {
-    name: ''
+    name: '',
+    token: ''
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -12,7 +13,7 @@ const user = {
     }
   },
   actions: {
-    LoginIn ({ commit }, userInfo) {
+    loginIn ({ commit }, userInfo) {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
@@ -21,6 +22,16 @@ const user = {
           reject(error)
         })
       })
+    },
+    loginOut ({ commit }) {
+      commit('SET_TOKEN', '')
+      commit('SET_NAME', '')
+    },
+    setToken ({ commit }, token) {
+      commit('SET_TOKEN', token)
+    },
+    setName ({ commit }, name) {
+      commit('SET_NAME', name)
     }
   }
 }

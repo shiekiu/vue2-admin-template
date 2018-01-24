@@ -89,7 +89,7 @@ form {
     box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.4);
     font-family: 'Open Sans', sans-serif;
 }
-.submit-agileits input[type="submit"] {
+.submit-agileits input[type="button"] {
     text-align: center;
     border: 0;
     color: #ffffff;
@@ -105,7 +105,7 @@ form {
     letter-spacing: 1px;
     transition: 0.5s ease-in-out;
 }
-.submit-agileits input[type="submit"]:hover {
+.submit-agileits input[type="button"]:hover {
     color: #ffffff;
     border-color: #00c6d7;
 }
@@ -241,7 +241,7 @@ form {
    h1 {
      margin: 1.8em 0 0.8em;
    }
-   .submit-agileits input[type="submit"] {
+   .submit-agileits input[type="button"] {
      padding: 11px 90px;
    }
 }
@@ -442,7 +442,7 @@ form {
      font-size: 13px;
      width: 68.2%;
    }
-   .submit-agileits input[type="submit"] {
+   .submit-agileits input[type="button"] {
      padding: 8px 68px;
      font-size: 15px;
    }
@@ -488,17 +488,20 @@ export default {
     submitForm () {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.$store.dispatch('LoginIn', this.loginForm).then((res) => {
+          this.$store.dispatch('loginIn', this.loginForm).then((res) => {
             if (res.statuscode === 200) {
+              this.$store.dispatch('setName', res.nickname)
+              this.$store.dispatch('setToken', res.bean.token)
               this.$router.push({ path: '/dashboard/index' })
             } else {
-              console.log(res.message)
+              this.$store.dispatch('loginOut')
+              this.$message.error(res.message)
             }
-            // console.log(this.$store)
           }).catch(() => {
           })
         } else {
-          console.log('登录失败!!')
+          this.$store.dispatch('loginOut')
+          this.$message.error('登录失败!!')
           return false
         }
       })

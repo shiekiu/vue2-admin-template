@@ -1,7 +1,7 @@
 <template>
 <div>
   <el-table :data="AccountTableData" style="width: 100%" stripe height="400">
-    <el-table-column fixed prop="name" label="賬號" align="center"></el-table-column>
+    <el-table-column fixed prop="user_name" label="賬號" align="center"></el-table-column>
     <el-table-column fixed prop="nickname" label="昵称" align="center"></el-table-column>
     <el-table-column fixed="right" label="操作" width="100" align="center">
       <template slot-scope="scope">
@@ -12,7 +12,7 @@
    <el-dialog title="賬號編輯" :visible.sync="dialogFormVisible" width="70%">
     <el-form :model="AccountData">
       <el-form-item label="賬號" :label-width="formLabelWidth">
-        <el-input class='editInput' v-model="AccountData.name" auto-complete="off"></el-input>
+        <el-input class='editInput' v-model="AccountData.user_name" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="昵称" :label-width="formLabelWidth">
         <el-input class='editInput' v-model="AccountData.nickname" auto-complete="off"></el-input>
@@ -26,11 +26,30 @@
 </div>
 </template>
 <script type="text/ecmascript-6">
+import { getAccoutList, getAccountById } from '../../api/account'
+import statuscode from '../../utils/code.json'
 export default {
+  mounted () {
+    getAccoutList().then((res) => {
+      let data = res.data
+      if (data.statuscode === statuscode.Success) {
+        this.AccountTableData = data.data.userList
+      }
+    }).catch(function (error) {
+      this.$message.error(error)
+    })
+  },
   methods: {
     handleEdit (index, row) {
-      this.AccountData = row
-      this.dialogFormVisible = true
+      getAccountById(row.id).then((res) => {
+        let data = res.data
+        if (data.statuscode === statuscode.Success) {
+          this.AccountData = data.data.user
+          this.dialogFormVisible = true
+        }
+      }).catch(function (error) {
+        this.$message.error(error)
+      })
     }
   },
   data () {
@@ -38,14 +57,14 @@ export default {
       dialogFormVisible: false,
       formLabelWidth: '80px',
       AccountData: {
-        name: '',
+        user_name: '',
         password: '',
         nickname: ''
       },
       AccountTableData: [
         {
-          name: 'admin',
-          nickname: '系統管理員'
+          user_name: '',
+          nickname: ''
         }
       ]
     }

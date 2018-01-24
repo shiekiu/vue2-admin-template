@@ -1,5 +1,5 @@
 'use strict'
-const tagsView = {
+const tagsbar = {
   state: {
     visitedViews: [],
     cachedViews: []
@@ -77,8 +77,8 @@ const tagsView = {
     }
   },
   getters: {
-    visitedViews: state => state.tagsView.visitedViews,
-    cachedViews: state => state.tagsView.cachedViews
+    visitedViews: state => state.tagsbar.visitedViews,
+    cachedViews: state => state.tagsbar.cachedViews
   }
 }
-export default tagsView
+export default tagsbar
