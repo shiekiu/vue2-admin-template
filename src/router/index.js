@@ -1,6 +1,7 @@
 'use strict'
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '@/store'
 /* Layout */
 import Layout from '../views/layout/index'
 const _import = require('./_import_' + process.env.NODE_ENV)
@@ -27,7 +28,7 @@ export const constantRouterMap = [
     component: Layout,
     hidden: false,
     children: [
-      { path: 'index', name: '主頁', title: '主頁', component: _import('dashboard/index') }
+      { path: 'index', name: '主頁', title: '主頁', component: _import('dashboard/index'), meta: { title: '帳號管理', requireAuth: true } }
     ]
   },
   { path: '/account',
@@ -37,13 +38,29 @@ export const constantRouterMap = [
     component: Layout,
     hidden: false,
     children: [
-      { path: 'account', name: '帳號管理', title: '帳號管理', component: _import('account/index') },
-      { path: 'password', name: '更改密碼', title: '更改密碼', component: _import('password/index') }
+      { path: 'account', name: '帳號管理', title: '帳號管理', component: _import('account/index'), meta: { title: '帳號管理', requireAuth: true } },
+      { path: 'password', name: '更改密碼', title: '更改密碼', component: _import('password/index'), meta: { title: '帳號管理', requireAuth: true } }
     ]
-  }
+  },
+  { path: '*', redirect: '/404', hidden: true }
 ]
-export default new Router({
+const router = new Router({
   mode: 'history', // 后端支持可开
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(r => r.meta.requireAuth)) {
+    if (store.state.user.token) {
+      next()
+    } else {
+      next({
+        path: '/login',
+        query: {redirect: to.fullPath}
+      })
+    }
+  } else {
+    next()
+  }
+})
+export default router
