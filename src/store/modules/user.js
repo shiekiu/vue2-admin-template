@@ -1,4 +1,4 @@
-import login from '../../api/login'
+import { loginIn } from '../../api/login'
 const user = {
   state: {
     name: '',
@@ -16,7 +16,7 @@ const user = {
     loginIn ({ commit }, userInfo) {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then(response => {
+        loginIn(username, userInfo.password).then(response => {
           resolve(response.data)
         }).catch(error => {
           reject(error)

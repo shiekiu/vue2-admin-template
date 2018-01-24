@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div style="display:flex;justify-content: space-between;align-items: center;">
+  <div class="search-container">
     <div>
     </div>
     <div>
