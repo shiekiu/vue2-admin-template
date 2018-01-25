@@ -5,12 +5,12 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
-          <img class="user-avatar" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1963855246,894575748&fm=27&gp=0.jpg">
+          <img class="user-avatar" :src="accountAvatar">
           <i class="el-icon-caret-bottom"></i>
         </div>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
-              管理员
+              {{nickName}}
           </el-dropdown-item>
           <router-link to="/account/password">
             <el-dropdown-item>
@@ -28,20 +28,20 @@
     </div>
   </el-menu>
   <el-dialog title="更改密码" :visible.sync="passwordFormVisible" width="70%">
-    <el-form :model="PasswordData">
+    <el-form :model="passwordData" ref="formData">
       <el-form-item label="賬號" :label-width="formLabelWidth">
-        <span></span>
+        <span>{{accountName}}</span>
       </el-form-item>
-      <el-form-item label="原密码" :label-width="formLabelWidth">
-        <el-input class='editInput' auto-complete="off"></el-input>
+      <el-form-item label="原密码" :label-width="formLabelWidth" prop="oldpassword" :rules="[ { required: true, message: '请输入原密码', trigger: 'blur' } ]">
+        <el-input type="password" v-model="passwordData.oldpassword" auto-complete="off"></el-input>
       </el-form-item>
-      <el-form-item label="新密码" :label-width="formLabelWidth">
-        <el-input class='editInput' auto-complete="off"></el-input>
+      <el-form-item label="新密码" :label-width="formLabelWidth" prop="newpassword" :rules="[ { required: true, message: '请输入新密码', trigger: 'blur' } ]">
+        <el-input type="password" v-model="passwordData.newpassword" auto-complete="off"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="passwordFormVisible = false">取 消</el-button>
-      <el-button type="primary" @click="passwordFormVisible = false">確 定</el-button>
+      <el-button type="primary" @click="handleSave('formData')">確 定</el-button>
     </div>
   </el-dialog>
   </div>
@@ -59,9 +59,24 @@ export default {
       type: Array
     }
   },
+  mounted () {
+    console.log(this.$store.state.user)
+    this.accountName = this.$store.state.user.accountName
+    this.accountAvatar = this.$store.state.user.accountAvatar
+    this.nickName = this.$store.state.user.nickName
+  },
   methods: {
     modifyPassword () {
       this.passwordFormVisible = true
+    },
+    handleSave (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.passwordFormVisible = false
+        } else {
+          return false
+        }
+      })
     },
     logout () {
       this.$store.dispatch('loginOut')
@@ -70,11 +85,15 @@ export default {
   },
   data () {
     return {
+      accountName: '',
+      accountAvatar: '',
+      nickName: '',
       passwordFormVisible: false,
       formLabelWidth: '80px',
-      PasswordData: {
+      passwordData: {
         user_name: '',
-        password: ''
+        oldpassword: '',
+        newpassword: ''
       }
     }
   }

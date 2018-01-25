@@ -20,17 +20,17 @@
     </el-table-column>
    </el-table>
    <el-dialog title="賬號編輯" :visible.sync="dialogFormVisible" width="70%">
-    <el-form :model="formData">
+    <el-form :model="formData" ref="formData">
       <el-form-item label="賬號" :label-width="formLabelWidth">
-        <span>{{formData.user_name}}</span>
+        <el-input class='editInput' v-model="formData.user_name" auto-complete="off" placeholder="賬號" :disabled="true"></el-input>
       </el-form-item>
-      <el-form-item label="昵称" :label-width="formLabelWidth">
-        <el-input class='editInput' v-model="formData.nickname" auto-complete="off"></el-input>
+      <el-form-item label="昵称" :label-width="formLabelWidth" prop="nickname" :rules="[ { required: true, message: '请输入昵称', trigger: 'blur' } ]">
+        <el-input class='editInput' v-model="formData.nickname" auto-complete="off" placeholder="昵称"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogFormVisible = false">取 消</el-button>
-      <el-button type="primary" @click="handleSave">確 定</el-button>
+      <el-button type="primary" @click="handleSave('formData')">確 定</el-button>
     </div>
   </el-dialog>
 </div>
@@ -73,8 +73,14 @@ export default {
         this.$message.error(error)
       })
     },
-    handleSave () {
-      this.dialogFormVisible = false
+    handleSave (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.dialogFormVisible = false
+        } else {
+          return false
+        }
+      })
     },
     handleAdd () {
       this.dialogFormVisible = true

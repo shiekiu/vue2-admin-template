@@ -490,7 +490,10 @@ export default {
         if (valid) {
           this.$store.dispatch('loginIn', this.loginForm).then((res) => {
             if (res.statuscode === 200) {
-              this.$store.dispatch('setName', res.nickname)
+              this.$store.dispatch('setAccountId', '1')
+              this.$store.dispatch('setAccountName', 'james')
+              this.$store.dispatch('setAccountAvatar', 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1963855246,894575748&fm=27&gp=0.jpg')
+              this.$store.dispatch('setNickName', res.nickname)
               this.$store.dispatch('setToken', res.bean.token)
               this.$router.push({ path: '/dashboard/index' })
             } else {

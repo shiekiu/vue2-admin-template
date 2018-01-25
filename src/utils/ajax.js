@@ -2,7 +2,6 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 import store from '@/store'
-// import { getToken } from '@/utils/auth'
 // 创建axios实例
 const service = axios.create({
   baseURL: 'http://www.demo.cn/api/',
@@ -15,7 +14,7 @@ service.interceptors.request.use(config => {
   // Do something before request is sent
   if (store.state.user.token) {
     // 存放token
-    config.headers['Authorization'] = 'Bearer ' + store.state.user.token // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
+    config.headers['Authorization'] = 'Bearer ' + store.state.user.token // 让每个请求携带token--['Authorization']为自定义key 请根据实际情况自行修改
   }
   return config
 }, error => {
