@@ -11,6 +11,7 @@ const service = axios.create({
 
 // request拦截器
 service.interceptors.request.use(config => {
+  store.dispatch('LOAD_START')
   // Do something before request is sent
   if (store.state.user.token) {
     // 存放token
@@ -25,7 +26,10 @@ service.interceptors.request.use(config => {
 
 // respone拦截器
 service.interceptors.response.use(
-  response => response,
+  response => {
+    store.dispatch('LOAD_END')
+    return response
+  },
   /**
   * 下面的注释为通过response自定义code来标示请求状态，当code返回如下情况为权限有问题，登出并返回到登录页
   * 如通过xmlhttprequest 状态码标识 逻辑可写在下面error中
@@ -54,6 +58,7 @@ service.interceptors.response.use(
   //       return response.data;
   //     }
   error => {
+    store.dispatch('LOAD_END')
     console.log('err' + error)// for debug
     Message({
       message: error.message,

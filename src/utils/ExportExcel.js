@@ -4,6 +4,7 @@ require('script-loader!../assets/script/Blob');
 import XLSX from 'xlsx'
 
 function generateArray(table) {
+    cosnole.log(1)
     var out = [];
     var rows = table.querySelectorAll('tr');
     var ranges = [];

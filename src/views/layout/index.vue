@@ -1,5 +1,6 @@
 <template>
   <div class="container-layout">
+    <v-loading v-if="this.$store.state.loading.loading"></v-loading>
     <!--菜单-->
     <div :class="!isCollapse?'left':'left coll'" style="background-color: rgb(238, 241, 246);height:100%;">
         <v-sidebar :menuList = "menuList" :isCollapse = "isCollapse"></v-sidebar>
@@ -61,11 +62,13 @@
   }
 </style>
 <script>
+import loading from './components/loading'
 import sidebar from './components/sidebar'
 import navbar from './components/navbar'
 import tagsbar from './components/tagsbar'
 export default {
   components: {
+    'v-loading': loading,
     'v-sidebar': sidebar,
     'v-navbar': navbar,
     'v-tagsbar': tagsbar
