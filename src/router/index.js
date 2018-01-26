@@ -38,8 +38,17 @@ export const constantRouterMap = [
     component: Layout,
     hidden: false,
     children: [
-      { path: 'account', name: '帳號管理', title: '帳號管理', component: _import('account/index'), meta: { title: '帳號管理', requireAuth: true } },
-      { path: 'password', name: '更改密碼', title: '更改密碼', component: _import('password/index'), meta: { title: '帳號管理', requireAuth: true } }
+      { path: 'account', name: '帳號管理', title: '帳號管理', component: _import('account/index'), meta: { title: '帳號管理', requireAuth: true } }
+    ]
+  },
+  { path: '/excel',
+    redirect: { name: 'Excel' },
+    title: 'Excel',
+    icon: 'icon iconfont icon-account',
+    component: Layout,
+    hidden: false,
+    children: [
+      { path: 'excel', name: 'Excel', title: 'Excel', component: _import('excel/index'), meta: { title: 'Excel', requireAuth: true } }
     ]
   },
   { path: '*', redirect: '/404', hidden: true }

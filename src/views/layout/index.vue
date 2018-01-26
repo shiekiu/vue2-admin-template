@@ -80,7 +80,8 @@ export default {
       isCollapse: false
     }
   },
-  created () {
+  mounted () {
+    this.$store.dispatch('LOAD_END')
     this.getMenu()
     this.getBreadcrumb()
   },

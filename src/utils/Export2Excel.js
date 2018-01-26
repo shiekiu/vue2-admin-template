@@ -1,10 +1,8 @@
 /* eslint-disable */
 require('script-loader!file-saver');
-require('script-loader!../assets/script/Blob');
-import XLSX from 'xlsx'
-
+require('script-loader!@/utils/Blob');
+import XLSX from 'xlsx';
 function generateArray(table) {
-    cosnole.log(1)
     var out = [];
     var rows = table.querySelectorAll('tr');
     var ranges = [];
@@ -93,7 +91,7 @@ function s2ab(s) {
     return buf;
 }
 
-export function export_table_to_excel(id) {
+export function exportTableToExcel(id) {
     var theTable = document.getElementById(id);
     var oo = generateArray(theTable);
     var ranges = oo[1];
@@ -117,7 +115,7 @@ export function export_table_to_excel(id) {
     saveAs(new Blob([s2ab(wbout)], {type: "application/octet-stream"}), "test.xlsx")
 }
 
-export function export_json_to_excel(th, jsonData, defaultTitle) {
+export function exportJsonToExcel(th, jsonData, defaultTitle) {
 
     /* original data */
 
