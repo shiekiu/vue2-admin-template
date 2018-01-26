@@ -2,6 +2,7 @@
   <div :class="className" :id="id" :style="{height:height,width:width}"></div>
 </template>
 <script>
+/* eslint-disable */
 import echarts from 'echarts'
 export default {
   props: {
@@ -41,94 +42,23 @@ export default {
   methods: {
     initChart () {
       this.chart = echarts.init(document.getElementById(this.id))
-      const xData = (function () {
-        const data = []
-        data.push('员工A')
-        data.push('员工B')
-        data.push('员工C')
-        data.push('员工D')
-        data.push('员工E')
-        data.push('员工F')
-        data.push('员工G')
-        data.push('员工H')
-        data.push('员工I')
-        data.push('员工J')
-        data.push('员工K')
-        data.push('员工L')
-        // for (let i = 1; i < 13; i++) {
-        //   data.push(i + '月份')
-        // }
-        return data
-      }())
       this.chart.setOption({
-        backgroundColor: '#344b58',
-        title: { text: '一月', subtext: '统计', x: '4%', textStyle: { color: '#fff', fontSize: '22' }, subtextStyle: { color: '#90979c', fontSize: '16' } },
-        tooltip: { trigger: 'axis', axisPointer: { textStyle: { color: '#fff' } } },
-        grid: { borderWidth: 0, top: 110, bottom: 95, textStyle: { color: '#fff' } },
-        legend: { x: '15%', top: '10%', textStyle: { color: '#90979c' }, data: ['A', 'C', '平均'] },
+        tooltip : { trigger: 'axis', axisPointer : { type : 'shadow' } },
+        legend: { data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎','百度','谷歌','必应','其他'] },
+        toolbox: { show : true, orient: 'vertical', x: 'right', y: 'center', feature : { mark : {show: true}, dataView : {show: true, readOnly: false}, magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']}, restore : {show: true}, saveAsImage : {show: true} } },
         calculable: true,
-        xAxis: [{
-          type: 'category',
-          axisLine: { lineStyle: { color: '#90979c' } },
-          splitLine: { show: false },
-          axisTick: { show: false },
-          splitArea: { show: false },
-          axisLabel: { interval: 0 },
-          data: xData
-        }],
-        yAxis: [{
-          type: 'value',
-          axisLine: { lineStyle: { color: '#90979c' } },
-          splitLine: { show: false },
-          axisTick: { show: false },
-          splitArea: { show: false },
-          axisLabel: { interval: 0 }
-        }],
-        dataZoom: [{
-          show: true,
-          height: 30,
-          xAxisIndex: [ 0 ],
-          bottom: 30,
-          start: 10,
-          end: 80,
-          handleIcon: 'path://M306.1,413c0,2.2-1.8,4-4,4h-59.8c-2.2,0-4-1.8-4-4V200.8c0-2.2,1.8-4,4-4h59.8c2.2,0,4,1.8,4,4V413z',
-          handleSize: '110%',
-          handleStyle: { color: '#d3dee5' },
-          textStyle: { color: '#fff' },
-          borderColor: '#90979c'
-        },
-        {
-          type: 'inside',
-          show: true,
-          height: 15,
-          start: 1,
-          end: 35
-        }],
-        series: [{
-          name: 'A',
-          type: 'bar',
-          stack: '总量',
-          barMaxWidth: 35,
-          barGap: '10%',
-          itemStyle: { normal: { color: 'rgba(255,144,128,1)', label: { show: true, textStyle: { color: '#fff' }, position: 'insideTop', formatter (p) { return p.value > 0 ? p.value : '' } } } },
-          data: [ 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 111, 121 ]
-        },
-        {
-          name: 'C',
-          type: 'bar',
-          stack: '总量',
-          itemStyle: { normal: { color: 'rgba(0,191,183,1)', label: { show: true, position: 'top', formatter (p) { return p.value > 0 ? p.value : '' } }, barBorderRadius: 0 } },
-          data: [ 12, 22, 32, 42, 52, 62, 72, 82, 92, 102, 112, 122 ]
-        },
-        {
-          name: '平均',
-          type: 'line',
-          stack: '总量',
-          symbolSize: 10,
-          symbol: 'circle',
-          itemStyle: { normal: { color: 'rgba(252,230,48,1)', label: { show: true, position: 'top', formatter (p) { return p.value > 0 ? p.value : '' } }, barBorderRadius: 0 } },
-          data: [ 11.5, 21.5, 31.5, 41.5, 51.5, 61.5, 71.5, 81.5, 91.5, 101.5, 111.5, 121.5 ]
-        }
+        xAxis: [ { type: 'category', data: [ '周一', '周二', '周三', '周四', '周五', '周六', '周日' ] } ],
+        yAxis: [ { type: 'value' } ],
+        series: [ {
+          name: '直接访问', type: 'bar', data: [ 320, 332, 301, 334, 390, 330, 320 ] },
+          { name: '邮件营销', type: 'bar', stack: '广告', data: [ 120, 132, 101, 134, 90, 230, 210 ] },
+          { name: '联盟广告', type: 'bar', stack: '广告', data: [220, 182, 191, 234, 290, 330, 310] },
+          { name: '视频广告', type: 'bar', stack: '广告', data: [150, 232, 201, 154, 190, 330, 410] },
+          { name: '搜索引擎', type: 'bar', data: [ 862, 1018, 964, 1026, 1679, 1600, 1570 ], markLine : { itemStyle: { normal: { lineStyle: { type: 'dashed' } } }, data: [ [ { type: 'min' }, { type: 'max' } ] ] } },
+          { name: '百度', type: 'bar', barWidth: 5, stack: '搜索引擎', data: [ 620, 732, 701, 734, 1090, 1130, 1120 ] },
+          { name: '谷歌', type: 'bar', stack: '搜索引擎', data: [ 120, 132, 101, 134, 290, 230, 220 ] },
+          { name: '必应', type: 'bar', stack: '搜索引擎', data: [ 60, 72, 71, 74, 190, 130, 110 ] },
+          { name: '其他', type: 'bar', stack: '搜索引擎', data: [ 62, 82, 91, 84, 109, 110, 120 ] }
         ]
       })
     }
