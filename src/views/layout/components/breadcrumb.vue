@@ -42,14 +42,33 @@ export default {
       cursor: text;
     }
   }
-  .breadcrumb-leave-active{
-    display:none;
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.28s;
   }
-  .breadcrumb-enter-active, .breadcrumb-leave-active {
-    transition: opacity 1s ease-in;
-  }
-  .breadcrumb-enter, .breadcrumb-leave-to{
+
+  .fade-enter,
+  .fade-leave-active {
     opacity: 0;
-    transform: translateY(30px);
+  }
+
+  /*fade*/
+  .breadcrumb-enter-active,
+  .breadcrumb-leave-active {
+    transition: all .5s;
+  }
+
+  .breadcrumb-enter,
+  .breadcrumb-leave-active {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  .breadcrumb-move {
+    transition: all .5s;
+  }
+
+  .breadcrumb-leave-active {
+    position: absolute;
   }
 </style>
