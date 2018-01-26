@@ -60,7 +60,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$store.state.user)
     this.accountName = this.$store.state.user.accountName
     this.accountAvatar = this.$store.state.user.accountAvatar
     this.nickName = this.$store.state.user.nickName

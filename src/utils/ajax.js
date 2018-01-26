@@ -4,7 +4,7 @@ import { Message } from 'element-ui'
 import store from '@/store'
 // 创建axios实例
 const service = axios.create({
-  baseURL: 'http://scheduleapi.shiekiu.cn/api/',
+  baseURL: 'http://www.demo.cn/api/',
   timeout: 5000 // 请求超时时间
 })
 
