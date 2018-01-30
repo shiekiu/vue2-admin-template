@@ -1,14 +1,15 @@
 'use strict'
 import ajax from '../utils/ajax'
-export function getAccoutList () {
+const getAccoutList = () => {
   return ajax({
     url: '/userList',
     method: 'get'
   })
 }
-export function getAccountById (id) {
+const getAccountById = (id) => {
   return ajax({
     url: '/user/' + id,
     method: 'get'
   })
 }
+export { getAccoutList, getAccountById }

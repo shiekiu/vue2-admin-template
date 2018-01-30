@@ -25,7 +25,7 @@
         <el-input class='editInput' v-model="formData.user_name" auto-complete="off" placeholder="賬號" :disabled="true"></el-input>
       </el-form-item>
       <el-form-item label="昵称" :label-width="formLabelWidth" prop="nickname" :rules="[ { required: true, message: '请输入昵称', trigger: 'blur' } ]">
-        <el-input class='editInput' v-model="formData.nickname" auto-complete="off" placeholder="昵称"></el-input>
+        <el-input class='editInput' v-model.number="formData.nickname" auto-complete="off" placeholder="昵称"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
